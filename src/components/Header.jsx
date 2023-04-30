@@ -13,7 +13,7 @@ function Header() {
           </div>
           <div className="header__cart">
             <a href="/cart.html" className="button button--cart">
-              <span>520 ₽</span>
+              <span>520 грн</span>
               <div className="button__delimiter"></div>
               <svg
                 width="18"
