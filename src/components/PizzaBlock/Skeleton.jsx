@@ -1,22 +1,26 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const Skeleton = () => (
-  <ContentLoader
-    speed={2}
-    width={380}
-    height={560}
-    viewBox="0 0 380 560"
-    backgroundColor="#f3f3f3"
-    foregroundColor="#ecebeb">
-    <circle cx="119" cy="115" r="111" />
-    <rect x="9" y="241" rx="3" ry="3" width="224" height="23" />
-    <rect x="180" y="245" rx="0" ry="0" width="0" height="8" />
-    <rect x="12" y="281" rx="6" ry="6" width="224" height="81" />
-    <rect x="18" y="383" rx="3" ry="3" width="71" height="29" />
-    <rect x="83" y="392" rx="0" ry="0" width="6" height="5" />
-    <rect x="116" y="374" rx="22" ry="22" width="121" height="42" />
-  </ContentLoader>
-);
+function Skeleton (props) {
+    return (
+        <ContentLoader 
+        className='pizza-block'
+          speed={2}
+          width={280}
+          height={500}
+          viewBox="0 0 280 500"
+          backgroundColor="#f3f3f3"
+          foregroundColor="#ecebeb"
+      >
+        <circle cx="134" cy="136" r="125" /> 
+        <rect x="0" y="279" rx="10" ry="10" width="280" height="23" /> 
+        <rect x="0" y="326" rx="10" ry="10" width="280" height="88" /> 
+        <rect x="0" y="436" rx="10" ry="10" width="95" height="30" /> 
+        <rect x="125" y="427" rx="24" ry="24" width="152" height="45" /> 
+        <rect x="0" y="436" rx="10" ry="10" width="95" height="30" /> 
+        <rect x="125" y="427" rx="24" ry="24" width="152" height="45" />
+      </ContentLoader>
+      );
+  }
 
 export default Skeleton;
