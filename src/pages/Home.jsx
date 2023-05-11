@@ -22,15 +22,15 @@ const Home = () => {
         setIsLoading(false);
       });
       window.scrollTo(0,0);
-  }, [categoryId]);
+  }, [categoryId, sortType]);
 
   console.log('isLoading:', isLoading );
 
   return (
     <div className="container">
       <div className="content__top">
-        <Categories value={categoryId} onClickCategory={(i) => setCategoryId(i)} />
-        <Sort />
+        <Categories value={categoryId} onChangeCategory={(i) => setCategoryId(i)} />
+        <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
