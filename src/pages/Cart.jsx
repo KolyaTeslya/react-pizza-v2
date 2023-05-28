@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CartItem from '../components/CartItem';
 import { clearItems } from '../redux/slices/cartSlice';
+import { CartEmpty } from '../components/CartEmpty';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,10 @@ const Cart = () => {
         dispatch(clearItems());
     }
 };
+
+if(!totalPrice) {
+  return <CartEmpty />
+ } 
 
   return (
     <div className="container container--cart">
@@ -100,7 +105,7 @@ const Cart = () => {
           <div class="cart__bottom-details">
             <span>
               {' '}
-              Всего пицц: <b>3 шт.</b>{' '}
+              Всего пицц: <b>{totalCount} шт.</b>{' '}
             </span>
             <span>
               {' '}

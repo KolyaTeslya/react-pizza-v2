@@ -29,12 +29,14 @@ const cartSlice = createSlice({
             if(findItem.count){
                 findItem.count--;
             }
+            
         },
         removeItem(state, action) {
             state.items = state.items.filter(obj => obj.id !== action.payload);
         },
         clearItems(state) {
             state.items = [];
+            state.totalPrice = 0;
         },
     }
 });
