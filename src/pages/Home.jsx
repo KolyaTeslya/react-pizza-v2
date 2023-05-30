@@ -9,9 +9,8 @@ import Sort, { sortList } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
-import axios from 'axios';
 import { SearchContext } from '../App';
-import { setItems } from '../redux/slices/pizzaSlice';
+import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -35,7 +34,7 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas =  async () => {
+  const getPizzas =  async () => {
     setIsLoading(true);
 
     const sortBy = sort.sortProperty.replace('-', '');
@@ -45,10 +44,13 @@ const Home = () => {
 
 
     try {
-      const { data } = await axios.get(
-        `https://644fe2f3ba9f39c6ab6f03fb.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
-        );
-      dispatch(setItems(data))
+      dispatch(fetchPizzas({
+        sortBy,
+        order,
+        category,
+        search,
+        currentPage,
+      }));
     } catch (error) {
       alert('Ошибка при получении пицц')
       console.log('error', error);
@@ -72,6 +74,18 @@ const Home = () => {
     isMounted.current = true;
   }, [categoryId, sort.sortProperty, currentPage]);
 
+
+  // Если был первый рендер, то запрашиваем пиццы
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+
+    if(!isSearch.current) {
+      getPizzas();
+    }
+
+    isSearch.current = false;
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+
   // Если был первый рендер, то проверяем URL - параметры и сохраняем в редакс
   React.useEffect(() => {
     if (window.location.search) {
@@ -88,18 +102,6 @@ const Home = () => {
         isSearch.current = true;
     }
   }, []);
-
-  // Если был первый рендер, то запрашиваем пиццы
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-
-    if(!isSearch.current) {
-      fetchPizzas();
-    }
-
-    isSearch.current = false;
-  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
-
 
   const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
 
