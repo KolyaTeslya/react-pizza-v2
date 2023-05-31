@@ -18,13 +18,10 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const items = useSelector((state) => state.pizza.items);
+  const { items, status } = useSelector((state) => state.pizza);
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
 
-
-
   const { searchValue } = React.useContext(SearchContext);
-  const [isLoading, setIsLoading] = React.useState(true);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -35,28 +32,19 @@ const Home = () => {
   };
 
   const getPizzas =  async () => {
-    setIsLoading(true);
-
     const sortBy = sort.sortProperty.replace('-', '');
     const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const search = searchValue ? `&search=${searchValue}` : '';
 
 
-    try {
-      dispatch(fetchPizzas({
-        sortBy,
-        order,
-        category,
-        search,
-        currentPage,
-      }));
-    } catch (error) {
-      alert('Ошибка при получении пицц')
-      console.log('error', error);
-    } finally {
-      setIsLoading(false);
-    }
+    dispatch(fetchPizzas({
+      sortBy,
+      order,
+      category,
+      search,
+      currentPage,
+    }));
 
       window.scrollTo(0, 0);
   };
@@ -72,7 +60,7 @@ const Home = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sort.sortProperty, currentPage]);
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
 
   // Если был первый рендер, то запрашиваем пиццы
@@ -114,7 +102,7 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">{isLoading ? skeletons : pizzas}</div>
+      <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
