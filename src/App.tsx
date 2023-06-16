@@ -1,7 +1,4 @@
-import React, { Children } from 'react';
-import { Outlet, Route, Routes } from 'react-router-dom';
-
-import Header from './components/Header';
+import { Route, Routes } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Cart from './pages/Cart';
