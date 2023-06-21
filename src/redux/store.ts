@@ -9,6 +9,7 @@ export const store = configureStore({
         filter,
         cart,
         pizza,
-    }
-})
+    },
+});
 
+export type RootState = ReturnType<typeof store.getState>
