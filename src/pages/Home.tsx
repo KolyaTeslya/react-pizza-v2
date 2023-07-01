@@ -24,10 +24,6 @@ const Home: React.FC = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  import("../utils/math").then(math => {
-    console.log(math.add(16, 26));
-  });
-
   const { items, status } = useSelector(selectPizzaData);
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
 
