@@ -33,7 +33,7 @@ const FullPizza: React.FC = () => {
       <img src={pizza.imageUrl} />
       <h2>{pizza.title}</h2>
       <h4>{pizza.price} грн</h4>
-      <Link to="/ererfe">
+      <Link to="/">
         <button className="button button--outline button--add">
           <span>Назад</span>
         </button>
